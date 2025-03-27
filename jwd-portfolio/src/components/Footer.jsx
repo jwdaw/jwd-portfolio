@@ -3,7 +3,9 @@ import "./css/Footer.css";
 function Footer() {
   return (
     <footer>
-      <h1>Copyright JDawson 2025</h1>
+      <section>
+        <p>&copy;Copyright JDawson 2025</p>
+      </section>
     </footer>
   );
 }

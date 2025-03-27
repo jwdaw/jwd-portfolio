@@ -1,0 +1,18 @@
+.navbar .navbar-brand.custom-brand {
+  font-weight: 700;
+  color: black;
+}
+
+.navbar .navbar-brand.custom-brand:hover {
+  color: maroon; /* Change color on hover */
+}
+
+.navbar .navbar-collapse .navbar-nav .nav-link.custom-nav-link {
+  color: black;
+}
+
+.navbar .navbar-collapse .navbar-nav .nav-link.custom-nav-link:hover {
+  color: maroon;
+  background-color: rgba(128, 0, 0, 0.1);
+  border-radius: 5px;
+}
