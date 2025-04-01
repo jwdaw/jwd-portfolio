@@ -12,14 +12,146 @@
   font-size: 20px;
 }
 
-/* Cards on Main */
 #flex-home {
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  padding: 15px 5px;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.main-cards {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: maroon; /* Rich maroon */
+  color: white;
+  border-radius: 10px;
+  padding: 15px;
+  margin: 0;
+  width: 100%;
+}
+
+/* List styling for the News card */
+.main-cards ul {
+  text-align: left;
+  padding-left: 20px;
+}
+
+.main-cards li {
+  margin-bottom: 12px;
+}
+
+.main-cards h2 {
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+  font-weight: 600;
+  text-align: center;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+  padding-bottom: 10px;
+  width: 100%;
+}
+
+/* Slideshow styling */
+.img-slideshow {
+  width: 100%;
+  max-width: 450px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.img-slideshow img {
+  border-radius: 8px;
+  object-fit: cover;
+  height: 350px; /* Increased from 280px */
+}
+
+.carousel-caption {
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 5px;
+  padding: 10px;
+  bottom: 15px;
+}
+
+.carousel-caption h3 {
+  font-size: 1.4rem;
+  margin-bottom: 5px;
+}
+
+.carousel-caption p {
+  font-size: 0.9rem;
 }
 
 /* Media Queries */
 @media screen and (max-width: 768px) {
   #intro-header h3 {
     font-size: 16px;
+  }
+
+  #flex-home {
+    padding: 20px 5px; /* Reduced horizontal padding */
+    gap: 10px; /* Smaller gap */
+  }
+
+  .main-cards {
+    padding: 15px;
+    max-width: none; /* Remove max-width constraint */
+    width: 100%; /* Take full width */
+    margin: 0; /* Remove auto margins */
+  }
+
+  .main-cards h2 {
+    font-size: 1.5rem;
+  }
+
+  .img-slideshow {
+    max-width: 100%; /* Make slideshow fill the card */
+  }
+
+  .img-slideshow img {
+    height: 280px; /* Increased from 220px */
+  }
+
+  .carousel-caption h3 {
+    font-size: 1.2rem;
+  }
+
+  .carousel-caption p {
+    font-size: 0.85rem;
+  }
+}
+
+/* For even smaller screens */
+@media screen and (max-width: 480px) {
+  #flex-home {
+    padding: 15px 3px; /* Even smaller padding */
+  }
+
+  .main-cards {
+    padding: 12px;
+    border-radius: 8px; /* Slightly smaller border radius */
+  }
+
+  .img-slideshow img {
+    height: 220px; /* Increased from 180px */
+  }
+}
+
+/* Large screens - switch to side-by-side layout */
+@media screen and (min-width: 769px) {
+  #flex-home {
+    flex-direction: row; /* Side by side on larger screens */
+    max-width: 1200px; /* Wider container on large screens */
+    gap: 20px;
+    padding: 30px 15px;
+  }
+
+  .main-cards {
+    flex: 1; /* Equal width cards */
+    max-width: 48%; /* Prevent cards from getting too wide */
   }
 }
