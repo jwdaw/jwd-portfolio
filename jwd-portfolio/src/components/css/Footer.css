@@ -2,18 +2,19 @@ footer {
   background: maroon;
   text-align: center;
   padding: 10px;
-  position: fixed;
-  bottom: 0;
   width: 100%;
+  /* Remove the fixed positioning */
+  position: static;
   left: 0;
 }
 
-section {
+footer section {
   background-color: white;
   padding: 14px;
+  margin: 0; /* Reset any margins */
 }
 
-p {
+footer p {
   display: block;
   padding-bottom: 0px;
   margin-bottom: 0px;
