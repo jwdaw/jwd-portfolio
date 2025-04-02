@@ -1,0 +1,122 @@
+/* Contact container styling */
+.contact-container {
+  padding: 20px 10px;
+  max-width: 800px;
+  margin: 0 auto 20px;
+}
+
+/* Header styling */
+.contact-container h1 {
+  color: maroon;
+  text-align: center;
+  margin-bottom: 25px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid maroon;
+}
+
+/* Form styling */
+.contact-form {
+  background-color: white;
+  border-radius: 10px;
+  padding: 25px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 8px lightgray;
+  border-left: 10px solid maroon;
+  border-right: 10px solid maroon;
+}
+
+.form-group label {
+  font-weight: 500;
+  color: #333;
+}
+
+.form-control:focus {
+  border-color: maroon;
+  box-shadow: 0 0 0 0.2rem rgba(128, 0, 0, 0.25);
+}
+
+/* Button styling */
+.btn-primary {
+  background-color: maroon !important;
+  border-color: maroon !important;
+  padding: 8px 20px;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: #600000 !important;
+  border-color: #600000 !important;
+  box-shadow: 0 0 0 0.2rem rgba(128, 0, 0, 0.25) !important;
+}
+
+/* Social links container */
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 25px;
+}
+
+/* Social links styling */
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 20px;
+  background-color: white;
+  color: maroon;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border: 2px solid maroon;
+}
+
+.social-link:hover {
+  background-color: maroon;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(128, 0, 0, 0.3);
+}
+
+/* Message textarea height */
+#formTextArea textarea {
+  min-height: 150px;
+}
+
+/* Responsive adaptations */
+@media screen and (max-width: 768px) {
+  .contact-container {
+    padding: 15px 10px;
+  }
+
+  .contact-form {
+    padding: 20px;
+  }
+
+  .social-links {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .social-link {
+    width: 80%;
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .contact-form {
+    padding: 15px;
+    border-width: 5px;
+  }
+
+  .contact-container h1 {
+    font-size: 1.7rem;
+  }
+
+  .btn-primary {
+    width: 100%;
+  }
+}

@@ -25,6 +25,12 @@ function Navigation() {
             <Nav.Link as={Link} to="/projects" className="custom-nav-link">
               Projects
             </Nav.Link>
+            <Nav.Link as={Link} to="/contact" className="custom-nav-link">
+              Contact Me
+            </Nav.Link>
+            <Nav.Link as={Link} to="/blog" className="custom-nav-link">
+              Blog
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

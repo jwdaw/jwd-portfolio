@@ -1,0 +1,101 @@
+/* Blog container styling */
+.blog-container h1 {
+  color: maroon;
+  text-align: center;
+  margin-bottom: 25px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid maroon;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Blog entries container */
+.blog-container {
+  padding: 20px 10px;
+  max-width: 1200px;
+  margin: 0 auto 20px;
+}
+
+/* Card component override for blog entries */
+.blog-container section,
+.card-section {
+  background-color: white;
+  border-radius: 10px;
+  padding: 25px;
+  margin: 0 auto 20px;
+  max-width: 1200px;
+  box-shadow: 0 4px 8px lightgray;
+  border-left: 10px solid maroon;
+  border-right: 10px solid maroon;
+}
+
+.blog-container section h2,
+.card-section h2 {
+  color: maroon;
+  border-bottom: 2px solid maroon;
+  padding-bottom: 8px;
+  margin-bottom: 20px;
+}
+
+.blog-container section p,
+.card-section p {
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+/* Video container for responsive iframe */
+#hack-video {
+  width: 100%;
+  max-width: 560px;
+  height: 315px;
+  border: none;
+  display: block;
+  margin: 20px auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Blog images */
+.blog-container section img,
+.card-section img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  display: block;
+  margin: 20px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+  .blog-container section,
+  .card-section {
+    padding: 20px;
+  }
+
+  #hack-video {
+    height: 250px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .blog-container h1 {
+    font-size: 1.7rem;
+  }
+
+  .blog-container section,
+  .card-section {
+    padding: 15px;
+    border-width: 5px;
+  }
+
+  .blog-container section h2,
+  .card-section h2 {
+    font-size: 1.4rem;
+  }
+
+  #hack-video {
+    height: 200px;
+  }
+}

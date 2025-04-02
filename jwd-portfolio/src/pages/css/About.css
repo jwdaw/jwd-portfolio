@@ -1,7 +1,7 @@
 /* Main container */
 section {
   padding: 20px 10px;
-  margin-bottom: 20px; /* Reduced from 50px to prevent excessive space */
+  margin-bottom: 50px; /* Space for footer */
 }
 
 /* Profile section styling */
@@ -12,7 +12,7 @@ section {
   background-color: white;
   border-radius: 10px;
   padding: 20px;
-  margin: 10px auto 20px;
+  margin: 0 auto 20px; /* Changed from 'auto 20px' to center horizontally */
   max-width: 1200px;
   box-shadow: 0 4px 8px lightgray;
   border-left: 10px solid maroon;
@@ -54,9 +54,11 @@ section {
   background-color: white;
   border-radius: 10px;
   padding: 20px;
-  margin: 0 auto 20px;
+  margin: 0 auto 20px; /* Make sure it has the same margin pattern */
   max-width: 1200px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px darkgray;
+  border-left: 10px solid maroon;
+  border-right: 10px solid maroon;
 }
 
 .contents h2 {
@@ -78,8 +80,7 @@ section {
   object-fit: cover;
   border-radius: 8px;
   margin-top: 10px;
-  margin-bottom: 0; /* Ensure no extra space after image */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px darkgray;
 }
 
 /* Media queries for responsiveness */
