@@ -1,143 +1,125 @@
 import "./css/Projects.css";
 import Nav from "react-bootstrap/Nav";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 function Projects() {
-  const [activeProject, setActiveProject] = useState("link-0");
+  const [activeProject, setActiveProject] = useState("0");
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        // Add http:// to the URL
+        const response = await axios.get(
+          "https://portfolio-server-3k7u.onrender.com/api/projects"
+        );
+        setProjects(response.data);
+        if (response.data.length > 0) {
+          setActiveProject("0"); // Set first project as active
+        }
+        setLoading(false);
+      } catch (err) {
+        setError("Failed to fetch projects data");
+        setLoading(false);
+        console.error("Error fetching projects:", err);
+      }
+    };
+
+    fetchProjects();
+  }, []);
 
   const handleSelect = (eventKey) => {
     setActiveProject(eventKey);
   };
 
+  if (loading)
+    return <div className="projects-container">Loading projects...</div>;
+  if (error) return <div className="projects-container">Error: {error}</div>;
+  if (projects.length === 0)
+    return <div className="projects-container">No projects found.</div>;
+
   return (
     <div className="projects-container">
       <div className="project-nav">
         <Nav variant="pills" activeKey={activeProject} onSelect={handleSelect}>
-          <Nav.Item>
-            <Nav.Link eventKey="link-0">JWD Portfolio</Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link eventKey="link-1">PostOne</Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link eventKey="link-2">Davinci Academia</Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link eventKey="link-3">Live Transcription App</Nav.Link>
-          </Nav.Item>
+          {projects.map((project, index) => (
+            <Nav.Item key={project._id}>
+              <Nav.Link eventKey={index.toString()}>{project.name}</Nav.Link>
+            </Nav.Item>
+          ))}
         </Nav>
       </div>
 
-      {activeProject === "link-0" && (
-        <div className="project-content">
-          <h2>Project Title: JWD Portfolio</h2>
-          <div className="project-image-container">
-            <img
-              src={`${process.env.PUBLIC_URL}/images/JWDPortfolio.png`}
-              alt="JWD Portfolio screenshot"
-            />
-          </div>
-          <p>
-            <span className="project-label">Description:</span>
-            This is my personal portfolio website (This Website) built using
-            React and Bootstrap. It is my cumulative project for my Web
-            Applications class in which it started as a static HTML website and
-            was built from the ground up into a fully fledged Web Application.
-          </p>
-          <p>
-            <span className="project-label">Skills:</span>
-            React, JavaScript, HTML, CSS, Bootstrap, Responsive Design
-          </p>
-          <p>
-            <span className="project-label">Contributions:</span>
-            Personal project
-          </p>
-          <p>
-            <span className="project-label">Github:</span>
-            <a href="https://github.com/jwdaw/jwd-portfolio">Click Here!</a>
-          </p>
-        </div>
-      )}
-
-      {activeProject === "link-2" && (
-        <div className="project-content">
-          <h2>Project Title: Davinci Academia</h2>
-          <div className="project-image-container">
-            <img
-              src={`${process.env.PUBLIC_URL}/images/Davinci.png`}
-              alt="Davinci Academia screenshot"
-            />
-          </div>
-          <p>
-            <span className="project-label">Description:</span>
-            DaVinci Academia is a recreation of a University Course and Major
-            review system. The project was created as a mock full-stack software
-            development life cycle, in which we covered topics such as
-            Requirements elicitation, UML design, Scrum management, Backend
-            development, Database development, Frontend development, and more.
-          </p>
-          <p>
-            <span className="project-label">Skills:</span>
-            Java, JSON, Unit Testing, Git, Scrum, UML Design, Backend
-            development, Database development, Frontend development
-          </p>
-          <p>
-            <span className="project-label">Contributions:</span>
-            Anthony Goldhammer, Oliver Meihls, Spencer Philips
-          </p>
-          <p>
-            <span className="project-label">Github:</span>
-            <a href="https://github.com/olliekod/davinciFX">Click Here!</a>
-          </p>
-        </div>
-      )}
-
-      {/* Add other project content sections as needed */}
-      {activeProject === "link-1" && (
-        <div className="project-content">
-          <h2>Project Title: PostOne</h2>
-          <div className="project-image-container">
-            <img
-              src={`${process.env.PUBLIC_URL}/images/PostOne.GIF`}
-              alt="PostOne"
-            />
-          </div>
-          <p>
-            <span className="project-label">Description:</span>PostOne is a
-            Smart Mailbox attachment created at 2025 CUHackit Hackathon. When
-            the mailbox door opens, an image is taken of the person who opened
-            it, and an email is sent to a user that their mailbox has been
-            opened, as well as whether or not the person who opened it is a
-            recognized user.
-          </p>
-          <p>
-            <span className="project-label">Skills:</span>
-            Python, Amazon Web Services (AWS) - Lambda Functions, S3 Buckets,
-            Rekognize Facial Recognition, and Simple Email Service
-          </p>
-          <p>
-            <span className="project-label">Contributions:</span>
-            Brian Wisniewski and Evan Zovkic
-          </p>
-          <p>
-            <span className="project-label">Github:</span>
-            <a href="https://github.com/jwdaw/PostOne">Click Here!</a>
-          </p>
-          <p>
-            <span className="project-label">DevPost:</span>
-            <a href="https://devpost.com/software/postone">Click Here!</a>
-          </p>
-        </div>
-      )}
-
-      {activeProject === "link-3" && (
-        <div className="project-content">
-          <h2>Project Title: Live Transcription App</h2>
-          <p>
-            <span className="project-label">Description:</span>
-            In Progress! Coming Soon!
-          </p>
-        </div>
+      {projects.map(
+        (project, index) =>
+          activeProject === index.toString() && (
+            <div className="project-content" key={project._id}>
+              <h2>Project Title: {project.name}</h2>
+              {project.image && (
+                <div className="project-image-container">
+                  <img
+                    src={`${process.env.PUBLIC_URL}/${project.image}`}
+                    alt={`${project.name} screenshot`}
+                  />
+                </div>
+              )}
+              <p>
+                <span className="project-label">Description:</span>
+                {project.desc}
+              </p>
+              <p>
+                <span className="project-label">Skills:</span>
+                {Array.isArray(project.skills)
+                  ? project.skills.join(", ")
+                  : project.skills}
+              </p>
+              <p>
+                <span className="project-label">Contributions:</span>
+                {Array.isArray(project.contributions) &&
+                project.contributions.length > 0
+                  ? project.contributions.map((contributor, idx) => (
+                      <span key={idx}>
+                        {idx > 0 && ", "}
+                        <a
+                          href={contributor.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {contributor.name}
+                        </a>
+                      </span>
+                    ))
+                  : "Personal project"}
+              </p>
+              {project.github && (
+                <p>
+                  <span className="project-label">Github:</span>
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Click Here!
+                  </a>
+                </p>
+              )}
+              {project.devpost && (
+                <p>
+                  <span className="project-label">DevPost:</span>
+                  <a
+                    href={project.devpost}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Click Here!
+                  </a>
+                </p>
+              )}
+            </div>
+          )
       )}
     </div>
   );
