@@ -1,0 +1,63 @@
+/* Project component styling */
+.props-content {
+  background-color: white;
+  border-radius: 10px;
+  padding: 25px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 8px lightgray;
+  border-left: 10px solid maroon;
+  border-right: 10px solid maroon;
+}
+
+.props-content h2 {
+  color: maroon;
+  border-bottom: 2px solid maroon;
+  padding-bottom: 8px;
+  margin-bottom: 20px;
+}
+
+.props-image-container {
+  text-align: center;
+  margin: 15px 0;
+}
+
+.props-image-container img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.props-content p {
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+/* Labels for sections */
+.props-label {
+  font-weight: 600;
+  color: maroon;
+  margin-right: 5px;
+}
+
+/* Responsive adaptations */
+@media screen and (min-width: 768px) {
+  .props-content {
+    padding: 30px;
+  }
+
+  .props-image-container img {
+    max-width: 80%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .props-content {
+    padding: 15px;
+    border-radius: 8px;
+  }
+
+  .props-content h2 {
+    font-size: 1.5rem;
+  }
+}
