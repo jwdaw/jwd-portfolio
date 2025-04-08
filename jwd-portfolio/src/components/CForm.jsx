@@ -29,7 +29,7 @@ export default function Contact() {
 
   return (
     <div className="contact-container">
-      <form onSubmit={onSubmit} className="contact-form">
+      <form onSubmit={onSubmit} className="contact-type">
         <div className="form-group">
           <input
             type="text"

@@ -17,7 +17,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: stretch;
-  padding: 15px 5px;
+  padding: 5px 5px;
   width: 100%;
   max-width: 600px;
   margin: 0 auto;
@@ -148,6 +148,7 @@
     max-width: 1200px; /* Wider container on large screens */
     gap: 20px;
     padding: 30px 15px;
+    padding-top: 0px;
   }
 
   .main-cards {
