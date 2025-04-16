@@ -15,6 +15,16 @@
   border-top: 10px solid maroon;
 }
 
+.nav-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.project-nav .nav-pills {
+  flex-grow: 1;
+}
+
 .project-nav .nav-pills .nav-link {
   color: black;
   margin: 0 5px;
@@ -66,6 +76,26 @@
   font-weight: 600;
   color: maroon;
   margin-right: 5px;
+}
+
+/* Add project button styling */
+.add-project-button {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: maroon;
+  color: white;
+  border: none;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px black;
+  margin-left: 10px;
+}
+
+.add-project-button:hover {
+  background-color: darkred;
 }
 
 /* Responsive adaptations */

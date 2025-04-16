@@ -1,0 +1,82 @@
+/* Project add form styling */
+.img-preview {
+  max-width: 250px;
+  max-height: 200px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px black;
+  margin: 10px auto;
+  display: block;
+}
+
+/* Style for the modal */
+.modal-content {
+  border-left: 8px solid maroon;
+  border-right: 8px solid maroon;
+}
+
+/* Style for buttons in form */
+.btn-danger {
+  background-color: maroon;
+  border-color: maroon;
+}
+
+.btn-danger:hover {
+  background-color: darkred;
+  border-color: darkred;
+}
+
+/* Additional form styling */
+.add-project-form {
+  padding: 20px 10px;
+}
+
+.form-section {
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid white;
+  position: relative; /* Establish positioning context */
+}
+
+.form-section:last-child {
+  border-bottom: none;
+}
+
+.section-header {
+  color: maroon;
+  margin-bottom: 20px;
+  font-weight: 600;
+  padding-bottom: 8px;
+  border-bottom: 1px solid white;
+  position: relative; /* Ensure proper stacking */
+  z-index: 1; /* Higher z-index for headers */
+  background-color: white; /* Prevent transparency issues */
+  width: 100%; /* Full width to prevent wrapping */
+  display: block; /* Block display for better spacing */
+}
+
+/* Specifically target Bootstrap form labels to override defaults */
+.add-project-form .form-label,
+.add-project-form label.form-label {
+  font-weight: 500;
+  margin-bottom: 12px;
+  margin-top: 16px;
+  display: block; /* Ensure block display */
+  position: relative; /* Proper positioning */
+  z-index: 1; /* Control stacking order */
+  background-color: white; /* Background to prevent see-through */
+  width: 100%; /* Full width */
+  padding: 2px 0; /* A bit of padding */
+  clear: both; /* Clear any floating elements */
+}
+
+/* Add spacing between form groups */
+.add-project-form .mb-4 {
+  margin-bottom: 2rem !important; /* Override Bootstrap's spacing */
+}
+
+/* Ensure form controls don't overlap with labels */
+.add-project-form .form-control {
+  position: relative;
+  z-index: 0;
+  margin-top: 5px;
+}
