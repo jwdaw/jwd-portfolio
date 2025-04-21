@@ -2,9 +2,6 @@ import "./css/Project.css";
 import "../pages/css/Projects.css";
 import { Button } from "react-bootstrap";
 
-// Base URL for local dev server
-const SERVER_URL = process.env.REACT_APP_SERVER_URL || "http://localhost:3001";
-
 function Project(props) {
   // Handle edit button click
   const handleEdit = () => {
@@ -18,16 +15,15 @@ function Project(props) {
     }
   };
 
+  const imageSrc = props.image;
+
   return (
     <>
       <div className="props-content" key={props._id}>
         <h2>Project Title: {props.name}</h2>
-        {props.image && (
+        {imageSrc && (
           <div className="props-image-container">
-            <img
-              src={props.image}
-              alt={`${props.name} screenshot`}
-            />
+            <img src={imageSrc} alt={`${props.name} screenshot`} />
           </div>
         )}
         <p>

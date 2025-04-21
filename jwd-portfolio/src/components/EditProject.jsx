@@ -2,23 +2,12 @@ import "./css/AddProject.css";
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import axios from "axios";
-// Base URL for local dev server
-const SERVER_URL = process.env.REACT_APP_SERVER_URL || "http://localhost:3001";
+
+const SERVER_URL = "https://portfolio-server-3k7u.onrender.com";
 
 const EditProject = (props) => {
   const [result, setResult] = useState("");
   const [prevSrc, setPrevSrc] = useState("");
-
-  // Set initial form values from project data
-  useEffect(() => {
-    if (props.project && props.project.image) {
-      setPrevSrc(
-        props.project.image.startsWith("http")
-          ? props.project.image
-          : `${SERVER_URL}/${props.project.image}`
-      );
-    }
-  }, [props.project]);
 
   const uploadImage = (event) => {
     if (event.target.files[0]) {
@@ -53,11 +42,9 @@ const EditProject = (props) => {
       formData.append("contributions", JSON.stringify(contributions));
     }
 
-    // Add the existing project ID
     formData.append("_id", props.project._id);
 
     try {
-      // Send the update request directly to the API
       const response = await axios({
         method: "put",
         url: `${SERVER_URL}/api/projects/${props.project._id}`,
@@ -69,7 +56,6 @@ const EditProject = (props) => {
 
       setResult("Project updated successfully");
 
-      // Wait a moment before closing the dialog
       setTimeout(() => {
         props.closeEditDialog();
         props.updateProject(response.data);
@@ -80,12 +66,11 @@ const EditProject = (props) => {
     }
   };
 
-  // Handle case where project data is not yet loaded
   if (!props.project) {
     return <div>Loading project data...</div>;
   }
 
-  // Extract the first contributor's data or use defaults
+  // Handle editing contributors
   const firstContributor =
     props.project.contributions && props.project.contributions.length > 0
       ? props.project.contributions[0]

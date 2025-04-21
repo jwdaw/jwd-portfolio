@@ -3,7 +3,9 @@ import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 
 // Base URL for local dev server
-const SERVER_URL = process.env.REACT_APP_SERVER_URL || "http://localhost:3001";
+const SERVER_URL =
+  process.env.REACT_APP_SERVER_URL ||
+  "https://portfolio-server-3k7u.onrender.com";
 
 const AddProject = (props) => {
   const [result, setResult] = useState("");
