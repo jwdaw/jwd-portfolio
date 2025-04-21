@@ -1,13 +1,24 @@
 import "./css/AddProject.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
-
+import axios from "axios";
 // Base URL for local dev server
 const SERVER_URL = process.env.REACT_APP_SERVER_URL || "http://localhost:3001";
 
-const AddProject = (props) => {
+const EditProject = (props) => {
   const [result, setResult] = useState("");
   const [prevSrc, setPrevSrc] = useState("");
+
+  // Set initial form values from project data
+  useEffect(() => {
+    if (props.project && props.project.image) {
+      setPrevSrc(
+        props.project.image.startsWith("http")
+          ? props.project.image
+          : `${SERVER_URL}/${props.project.image}`
+      );
+    }
+  }, [props.project]);
 
   const uploadImage = (event) => {
     if (event.target.files[0]) {
@@ -15,9 +26,9 @@ const AddProject = (props) => {
     }
   };
 
-  const addToServer = async (event) => {
+  const updateProject = async (event) => {
     event.preventDefault();
-    setResult("Sending...");
+    setResult("Updating...");
 
     const formData = new FormData(event.target);
 
@@ -42,61 +53,48 @@ const AddProject = (props) => {
       formData.append("contributions", JSON.stringify(contributions));
     }
 
-    const projectId = crypto.randomUUID
-      ? crypto.randomUUID()
-      : Math.random().toString(36).substring(2, 15) +
-        Math.random().toString(36).substring(2, 15);
-    formData.append("_id", projectId);
+    // Add the existing project ID
+    formData.append("_id", props.project._id);
 
     try {
-      console.log("Form data file:", formData.get("img"));
-
-      const response = await fetch(`${SERVER_URL}/api/projects`, {
-        method: "POST",
-        body: formData,
+      // Send the update request directly to the API
+      const response = await axios({
+        method: "put",
+        url: `${SERVER_URL}/api/projects/${props.project._id}`,
+        data: formData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       });
 
-      const contentType = response.headers.get("content-type");
-      if (response.ok) {
-        if (contentType && contentType.includes("application/json")) {
-          const newProject = await response.json();
-          setResult("Project added successfully");
-          event.target.reset();
-          setPrevSrc("");
-          props.closeAddDialog();
-          props.updateProjects(newProject);
-        } else {
-          const text = await response.text();
-          setResult("Success, but received non-JSON response");
-          console.log("Server returned non-JSON:", text);
-          const placeholderProject = {
-            _id: projectId,
-            name: formData.get("name"),
-            desc: formData.get("desc"),
-            skills: JSON.parse(formData.get("skills")),
-            contributions: JSON.parse(formData.get("contributions")),
-            image: prevSrc || "images/placeholder.png",
-          };
-          props.closeAddDialog();
-          props.updateProjects(placeholderProject);
-        }
-      } else {
-        console.error("Response status:", response.status);
-        console.error("Response type:", contentType);
-        const errorText = await response.text();
-        setResult(`Error adding project: ${response.status}`);
-        console.error("Server response:", errorText);
-      }
+      setResult("Project updated successfully");
+
+      // Wait a moment before closing the dialog
+      setTimeout(() => {
+        props.closeEditDialog();
+        props.updateProject(response.data);
+      }, 1000);
     } catch (error) {
-      setResult(`Network error: ${error.message}`);
-      console.error("Network error:", error);
+      console.error("Update error:", error);
+      setResult(`Error updating project: ${error.message}`);
     }
   };
+
+  // Handle case where project data is not yet loaded
+  if (!props.project) {
+    return <div>Loading project data...</div>;
+  }
+
+  // Extract the first contributor's data or use defaults
+  const firstContributor =
+    props.project.contributions && props.project.contributions.length > 0
+      ? props.project.contributions[0]
+      : { name: "", url: "" };
 
   return (
     <Modal
       show={true}
-      onHide={props.closeAddDialog}
+      onHide={props.closeEditDialog}
       centered
       backdrop="static"
       size="lg"
@@ -105,10 +103,10 @@ const AddProject = (props) => {
         closeButton
         style={{ backgroundColor: "maroon", color: "white" }}
       >
-        <Modal.Title>Add New Project</Modal.Title>
+        <Modal.Title>Edit Project</Modal.Title>
       </Modal.Header>
       <Modal.Body className="add-project-form">
-        <Form onSubmit={addToServer}>
+        <Form onSubmit={updateProject}>
           <div className="form-section">
             <h5 className="section-header">Project Details</h5>
             <Form.Group className="mb-4">
@@ -120,6 +118,7 @@ const AddProject = (props) => {
                 required
                 minLength="3"
                 placeholder="Enter project name"
+                defaultValue={props.project.name}
               />
             </Form.Group>
 
@@ -132,6 +131,7 @@ const AddProject = (props) => {
                 required
                 rows={3}
                 placeholder="Enter project description"
+                defaultValue={props.project.desc}
               />
             </Form.Group>
 
@@ -145,6 +145,11 @@ const AddProject = (props) => {
                 name="skills"
                 required
                 placeholder="e.g. React, JavaScript, Bootstrap"
+                defaultValue={
+                  Array.isArray(props.project.skills)
+                    ? props.project.skills.join(", ")
+                    : ""
+                }
               />
             </Form.Group>
           </div>
@@ -159,6 +164,7 @@ const AddProject = (props) => {
                 name="contributorName"
                 required
                 placeholder="Enter contributor name"
+                defaultValue={firstContributor.name}
               />
             </Form.Group>
 
@@ -171,6 +177,7 @@ const AddProject = (props) => {
                 id="contributorUrl"
                 name="contributorUrl"
                 placeholder="https://github.com/username"
+                defaultValue={firstContributor.url || ""}
               />
             </Form.Group>
           </div>
@@ -178,7 +185,9 @@ const AddProject = (props) => {
           <div className="form-section">
             <h5 className="section-header">Project Image</h5>
             <Form.Group controlId="formFile" className="mb-4">
-              <Form.Label className="form-label">Upload Image</Form.Label>
+              <Form.Label className="form-label">
+                Upload New Image (optional)
+              </Form.Label>
               <Form.Control
                 type="file"
                 name="img"
@@ -189,7 +198,7 @@ const AddProject = (props) => {
 
             {prevSrc && (
               <div className="text-center mb-4">
-                <h6>Preview:</h6>
+                <h6>Current Image:</h6>
                 <img src={prevSrc} alt="Preview" className="img-preview" />
               </div>
             )}
@@ -199,7 +208,7 @@ const AddProject = (props) => {
             <Button
               variant="secondary"
               className="me-2"
-              onClick={props.closeAddDialog}
+              onClick={props.closeEditDialog}
             >
               Cancel
             </Button>
@@ -208,7 +217,7 @@ const AddProject = (props) => {
               type="submit"
               style={{ backgroundColor: "maroon" }}
             >
-              Add Project
+              Update Project
             </Button>
           </div>
 
@@ -219,4 +228,4 @@ const AddProject = (props) => {
   );
 };
 
-export default AddProject;
+export default EditProject;

@@ -1,7 +1,23 @@
 import "./css/Project.css";
 import "../pages/css/Projects.css";
+import { Button } from "react-bootstrap";
+
+// Base URL for local dev server
+const SERVER_URL = process.env.REACT_APP_SERVER_URL || "http://localhost:3001";
 
 function Project(props) {
+  // Handle edit button click
+  const handleEdit = () => {
+    props.onEdit(props._id);
+  };
+
+  // Handle delete button click
+  const handleDelete = () => {
+    if (window.confirm(`Are you sure you want to delete "${props.name}"?`)) {
+      props.onDelete(props._id);
+    }
+  };
+
   return (
     <>
       <div className="props-content" key={props._id}>
@@ -9,7 +25,7 @@ function Project(props) {
         {props.image && (
           <div className="props-image-container">
             <img
-              src={`${process.env.PUBLIC_URL}/${props.image}`}
+              src={props.image}
               alt={`${props.name} screenshot`}
             />
           </div>
@@ -55,6 +71,20 @@ function Project(props) {
             </a>
           </p>
         )}
+
+        {/* Add Edit and Delete buttons */}
+        <div className="project-actions mt-4">
+          <Button
+            variant="outline-primary"
+            className="me-2"
+            onClick={handleEdit}
+          >
+            Edit Project
+          </Button>
+          <Button variant="outline-danger" onClick={handleDelete}>
+            Delete Project
+          </Button>
+        </div>
       </div>
     </>
   );
