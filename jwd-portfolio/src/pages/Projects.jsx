@@ -6,7 +6,9 @@ import Project from "../components/Project";
 import AddProject from "../components/AddProject";
 import EditProject from "../components/EditProject";
 
-const SERVER_URL = "https://portfolio-server-3k7u.onrender.com";
+//"https://portfolio-server-3k7u.onrender.com"
+
+const SERVER_URL = "http://localhost:3001";
 
 function Projects() {
   const [activeProject, setActiveProject] = useState("0");

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import axios from "axios";
 
-const SERVER_URL = "https://portfolio-server-3k7u.onrender.com";
+const SERVER_URL = "http://localhost:3001";
 
 const EditProject = (props) => {
   const [result, setResult] = useState("");
