@@ -8,7 +8,7 @@ import EditProject from "../components/EditProject";
 
 //"https://portfolio-server-3k7u.onrender.com"
 
-const SERVER_URL = "http://localhost:3001";
+const SERVER_URL = "https://portfolio-server-3k7u.onrender.com";
 
 function Projects() {
   const [activeProject, setActiveProject] = useState("0");
