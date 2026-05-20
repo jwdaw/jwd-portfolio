@@ -1,7 +1,6 @@
 import { useState } from "react";
-import "./css/CForm.css";
 
-export default function Contact() {
+export default function CForm() {
   const [result, setResult] = useState("");
 
   const onSubmit = async (event) => {
@@ -28,51 +27,69 @@ export default function Contact() {
   };
 
   return (
-    <div className="contact-container">
-      <form onSubmit={onSubmit} className="contact-type">
-        <div className="form-group">
+    <div>
+      <form onSubmit={onSubmit} className="space-y-6">
+        <div>
+          <label
+            htmlFor="name"
+            className="block text-sm font-medium text-gray-300 mb-1"
+          >
+            Name
+          </label>
           <input
             type="text"
             name="name"
             id="name"
-            className="form-control"
             required
+            className="w-full px-4 py-2 bg-dark-700 border border-dark-500 rounded-md text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
+            placeholder="Your name"
           />
-          <label htmlFor="name" className="form-label">
-            Name
-          </label>
         </div>
 
-        <div className="form-group">
+        <div>
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-gray-300 mb-1"
+          >
+            Email
+          </label>
           <input
             type="email"
             name="email"
             id="email"
-            className="form-control"
             required
+            className="w-full px-4 py-2 bg-dark-700 border border-dark-500 rounded-md text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
+            placeholder="you@example.com"
           />
-          <label htmlFor="email" className="form-label">
-            Email
-          </label>
         </div>
 
-        <div className="form-group">
+        <div>
+          <label
+            htmlFor="message"
+            className="block text-sm font-medium text-gray-300 mb-1"
+          >
+            Message
+          </label>
           <textarea
             name="message"
             id="message"
-            className="form-control"
             required
+            rows={5}
+            className="w-full px-4 py-2 bg-dark-700 border border-dark-500 rounded-md text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent resize-none"
+            placeholder="What's on your mind?"
           ></textarea>
-          <label htmlFor="message" className="form-label">
-            Message
-          </label>
         </div>
 
-        <button type="submit" className="submit-btn">
-          Submit Form
+        <button
+          type="submit"
+          className="w-full py-3 bg-accent hover:bg-accent-dark text-white font-medium rounded-md transition-colors"
+        >
+          Send Message
         </button>
       </form>
-      <span className="form-result">{result}</span>
+      {result && (
+        <p className="mt-4 text-center text-sm text-accent-light">{result}</p>
+      )}
     </div>
   );
 }

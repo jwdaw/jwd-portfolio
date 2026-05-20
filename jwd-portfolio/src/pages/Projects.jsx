@@ -1,12 +1,8 @@
-import "./css/Projects.css";
-import Nav from "react-bootstrap/Nav";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Project from "../components/Project";
 import AddProject from "../components/AddProject";
 import EditProject from "../components/EditProject";
-
-//"https://portfolio-server-3k7u.onrender.com"
 
 const SERVER_URL = "https://portfolio-server-3k7u.onrender.com";
 
@@ -32,10 +28,7 @@ function Projects() {
       }
       setLoading(false);
     } catch (err) {
-      // If there's an error, try to use a fallback with hard-coded projects
       console.error("Error fetching projects:", err);
-
-      // Fallback to hard-coded projects if needed
       const fallbackProjects = [
         {
           _id: "8f298c04-00ed-42bc-b8f7-eaf3ec6ce5df",
@@ -45,9 +38,7 @@ function Projects() {
           skills: ["Java", "JSON", "Unit Testing", "Git", "Scrum"],
           contributions: [{ name: "Team Project" }],
         },
-        // Add other fallback projects similar to what's in your server.js
       ];
-
       setProjects(fallbackProjects);
       setActiveProject("0");
       setLoading(false);
@@ -55,26 +46,21 @@ function Projects() {
     }
   };
 
-  const handleSelect = (eventKey) => {
-    setActiveProject(eventKey);
+  const handleSelect = (index) => {
+    setActiveProject(index.toString());
   };
 
-  const openAddDialog = () => {
-    setShowAddDialog(true);
-  };
-
-  const closeAddDialog = () => {
-    setShowAddDialog(false);
-  };
+  const openAddDialog = () => setShowAddDialog(true);
+  const closeAddDialog = () => setShowAddDialog(false);
 
   const updateProjects = (project) => {
-    setProjects((currentProjects) => [...currentProjects, project]);
+    setProjects((current) => [...current, project]);
   };
 
   const handleEditProject = (projectId) => {
-    const projectToEdit = projects.find((project) => project._id === projectId);
-    if (projectToEdit) {
-      setProjectToEdit(projectToEdit);
+    const project = projects.find((p) => p._id === projectId);
+    if (project) {
+      setProjectToEdit(project);
       setShowEditDialog(true);
     }
   };
@@ -85,26 +71,17 @@ function Projects() {
   };
 
   const updateProject = (updatedProject) => {
-    setProjects((currentProjects) =>
-      currentProjects.map((project) =>
-        project._id === updatedProject._id ? updatedProject : project
-      )
+    setProjects((current) =>
+      current.map((p) => (p._id === updatedProject._id ? updatedProject : p)),
     );
   };
 
-  // Delete project handler
   const handleDeleteProject = async (projectId) => {
     try {
       await axios.delete(`${SERVER_URL}/api/projects/${projectId}`, {
         headers: { "Content-Type": "application/json" },
       });
-
-      // Remove from state
-      setProjects((currentProjects) =>
-        currentProjects.filter((project) => project._id !== projectId)
-      );
-
-      // If the active project was deleted, select the first project
+      setProjects((current) => current.filter((p) => p._id !== projectId));
       if (
         projects.length > 0 &&
         projects[parseInt(activeProject)]._id === projectId
@@ -117,31 +94,28 @@ function Projects() {
     }
   };
 
-  if (loading)
-    return <div className="projects-container">Loading projects...</div>;
-  if (error) return <div className="projects-container">Error: {error}</div>;
-  if (projects.length === 0)
+  if (loading) {
     return (
-      <div className="projects-container">
-        <p>No projects found.</p>
-        <button
-          className="add-project-button"
-          onClick={openAddDialog}
-          title="Add new project"
-        >
-          +
-        </button>
-        {showAddDialog && (
-          <AddProject
-            closeAddDialog={closeAddDialog}
-            updateProjects={updateProjects}
-          />
-        )}
+      <div className="max-w-6xl mx-auto px-4 py-12 text-center text-gray-400">
+        Loading projects...
       </div>
     );
+  }
+
+  if (error && projects.length === 0) {
+    return (
+      <div className="max-w-6xl mx-auto px-4 py-12 text-center text-red-400">
+        Error: {error}
+      </div>
+    );
+  }
 
   return (
-    <div className="projects-container">
+    <div className="max-w-6xl mx-auto px-4 py-12">
+      <h1 className="text-3xl font-bold text-white text-center mb-8">
+        Projects
+      </h1>
+
       {showAddDialog && (
         <AddProject
           closeAddDialog={closeAddDialog}
@@ -157,29 +131,33 @@ function Projects() {
         />
       )}
 
-      <div className="project-nav">
-        <div className="nav-header">
-          <Nav
-            variant="pills"
-            activeKey={activeProject}
-            onSelect={handleSelect}
-          >
-            {projects.map((project, index) => (
-              <Nav.Item key={`${project._id}-${index}`}>
-                <Nav.Link eventKey={index.toString()}>{project.name}</Nav.Link>
-              </Nav.Item>
-            ))}
-          </Nav>
+      {/* Project tabs */}
+      <div className="flex flex-wrap items-center gap-2 mb-6">
+        {projects.map((project, index) => (
           <button
-            className="add-project-button"
-            onClick={openAddDialog}
-            title="Add new project"
+            key={`${project._id}-${index}`}
+            onClick={() => handleSelect(index)}
+            className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+              activeProject === index.toString()
+                ? "bg-accent text-white"
+                : "bg-dark-700 text-gray-300 hover:bg-dark-600 hover:text-white border border-dark-600"
+            }`}
           >
-            +
+            {project.name}
           </button>
-        </div>
+        ))}
+        <button
+          onClick={openAddDialog}
+          className="px-4 py-2 rounded-md text-sm font-medium bg-dark-700 border border-dashed border-dark-500 text-gray-400 hover:text-accent hover:border-accent transition-colors"
+          title="Add new project"
+        >
+          + Add
+        </button>
       </div>
 
+      {error && <p className="text-yellow-500 text-sm mb-4">{error}</p>}
+
+      {/* Active project */}
       {projects.map(
         (project, index) =>
           activeProject === index.toString() && (
@@ -196,7 +174,7 @@ function Projects() {
               onEdit={handleEditProject}
               onDelete={handleDeleteProject}
             />
-          )
+          ),
       )}
     </div>
   );

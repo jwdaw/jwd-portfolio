@@ -1,8 +1,5 @@
-import "./css/AddProject.css";
 import React, { useState } from "react";
-import { Modal, Button, Form } from "react-bootstrap";
 
-// Base URL for local dev server
 const SERVER_URL = process.env.REACT_APP_SERVER_URL || "http://localhost:3001";
 
 const AddProject = (props) => {
@@ -34,11 +31,9 @@ const AddProject = (props) => {
     if (contributorName) {
       formData.delete("contributorName");
       formData.delete("contributorUrl");
-
       const contributions = contributorUrl
         ? [{ name: contributorName, url: contributorUrl }]
         : [{ name: contributorName }];
-
       formData.append("contributions", JSON.stringify(contributions));
     }
 
@@ -49,15 +44,13 @@ const AddProject = (props) => {
     formData.append("_id", projectId);
 
     try {
-      console.log("Form data file:", formData.get("img"));
-
       const response = await fetch(`${SERVER_URL}/api/projects`, {
         method: "POST",
         body: formData,
       });
 
-      const contentType = response.headers.get("content-type");
       if (response.ok) {
+        const contentType = response.headers.get("content-type");
         if (contentType && contentType.includes("application/json")) {
           const newProject = await response.json();
           setResult("Project added successfully");
@@ -66,9 +59,6 @@ const AddProject = (props) => {
           props.closeAddDialog();
           props.updateProjects(newProject);
         } else {
-          const text = await response.text();
-          setResult("Success, but received non-JSON response");
-          console.log("Server returned non-JSON:", text);
           const placeholderProject = {
             _id: projectId,
             name: formData.get("name"),
@@ -81,141 +71,173 @@ const AddProject = (props) => {
           props.updateProjects(placeholderProject);
         }
       } else {
-        console.error("Response status:", response.status);
-        console.error("Response type:", contentType);
-        const errorText = await response.text();
         setResult(`Error adding project: ${response.status}`);
-        console.error("Server response:", errorText);
       }
     } catch (error) {
       setResult(`Network error: ${error.message}`);
-      console.error("Network error:", error);
     }
   };
 
   return (
-    <Modal
-      show={true}
-      onHide={props.closeAddDialog}
-      centered
-      backdrop="static"
-      size="lg"
-    >
-      <Modal.Header
-        closeButton
-        style={{ backgroundColor: "maroon", color: "white" }}
-      >
-        <Modal.Title>Add New Project</Modal.Title>
-      </Modal.Header>
-      <Modal.Body className="add-project-form">
-        <Form onSubmit={addToServer}>
-          <div className="form-section">
-            <h5 className="section-header">Project Details</h5>
-            <Form.Group className="mb-4">
-              <Form.Label className="form-label">Project Name</Form.Label>
-              <Form.Control
-                type="text"
-                id="name"
-                name="name"
-                required
-                minLength="3"
-                placeholder="Enter project name"
-              />
-            </Form.Group>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
+      <div className="bg-dark-800 border border-dark-600 rounded-lg w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+        {/* Header */}
+        <div className="flex items-center justify-between p-4 border-b border-dark-600">
+          <h2 className="text-lg font-bold text-white">Add New Project</h2>
+          <button
+            onClick={props.closeAddDialog}
+            className="text-gray-400 hover:text-white text-xl"
+            aria-label="Close"
+          >
+            ×
+          </button>
+        </div>
 
-            <Form.Group className="mb-4">
-              <Form.Label className="form-label">Description</Form.Label>
-              <Form.Control
-                as="textarea"
-                id="desc"
-                name="desc"
-                required
-                rows={3}
-                placeholder="Enter project description"
-              />
-            </Form.Group>
-
-            <Form.Group className="mb-4">
-              <Form.Label className="form-label">
-                Skills (comma separated)
-              </Form.Label>
-              <Form.Control
-                type="text"
-                id="skills"
-                name="skills"
-                required
-                placeholder="e.g. React, JavaScript, Bootstrap"
-              />
-            </Form.Group>
+        {/* Body */}
+        <form onSubmit={addToServer} className="p-6 space-y-6">
+          <div>
+            <h3 className="text-sm font-semibold text-gray-300 uppercase tracking-wider mb-3">
+              Project Details
+            </h3>
+            <div className="space-y-4">
+              <div>
+                <label
+                  htmlFor="name"
+                  className="block text-sm text-gray-400 mb-1"
+                >
+                  Project Name
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  required
+                  minLength="3"
+                  placeholder="Enter project name"
+                  className="w-full px-3 py-2 bg-dark-700 border border-dark-500 rounded-md text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-accent"
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="desc"
+                  className="block text-sm text-gray-400 mb-1"
+                >
+                  Description
+                </label>
+                <textarea
+                  id="desc"
+                  name="desc"
+                  required
+                  rows={3}
+                  placeholder="Enter project description"
+                  className="w-full px-3 py-2 bg-dark-700 border border-dark-500 rounded-md text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-accent resize-none"
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="skills"
+                  className="block text-sm text-gray-400 mb-1"
+                >
+                  Skills (comma separated)
+                </label>
+                <input
+                  type="text"
+                  id="skills"
+                  name="skills"
+                  required
+                  placeholder="e.g. React, JavaScript, Bootstrap"
+                  className="w-full px-3 py-2 bg-dark-700 border border-dark-500 rounded-md text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-accent"
+                />
+              </div>
+            </div>
           </div>
 
-          <div className="form-section">
-            <h5 className="section-header">Contributors</h5>
-            <Form.Group className="mb-4">
-              <Form.Label className="form-label">Contributor Name</Form.Label>
-              <Form.Control
-                type="text"
-                id="contributorName"
-                name="contributorName"
-                required
-                placeholder="Enter contributor name"
-              />
-            </Form.Group>
-
-            <Form.Group className="mb-4">
-              <Form.Label className="form-label">
-                Contributor URL (optional)
-              </Form.Label>
-              <Form.Control
-                type="url"
-                id="contributorUrl"
-                name="contributorUrl"
-                placeholder="https://github.com/username"
-              />
-            </Form.Group>
+          <div>
+            <h3 className="text-sm font-semibold text-gray-300 uppercase tracking-wider mb-3">
+              Contributors
+            </h3>
+            <div className="space-y-4">
+              <div>
+                <label
+                  htmlFor="contributorName"
+                  className="block text-sm text-gray-400 mb-1"
+                >
+                  Contributor Name
+                </label>
+                <input
+                  type="text"
+                  id="contributorName"
+                  name="contributorName"
+                  required
+                  placeholder="Enter contributor name"
+                  className="w-full px-3 py-2 bg-dark-700 border border-dark-500 rounded-md text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-accent"
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="contributorUrl"
+                  className="block text-sm text-gray-400 mb-1"
+                >
+                  Contributor URL (optional)
+                </label>
+                <input
+                  type="url"
+                  id="contributorUrl"
+                  name="contributorUrl"
+                  placeholder="https://github.com/username"
+                  className="w-full px-3 py-2 bg-dark-700 border border-dark-500 rounded-md text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-accent"
+                />
+              </div>
+            </div>
           </div>
 
-          <div className="form-section">
-            <h5 className="section-header">Project Image</h5>
-            <Form.Group controlId="formFile" className="mb-4">
-              <Form.Label className="form-label">Upload Image</Form.Label>
-              <Form.Control
-                type="file"
-                name="img"
-                accept="image/*"
-                onChange={uploadImage}
-              />
-            </Form.Group>
-
+          <div>
+            <h3 className="text-sm font-semibold text-gray-300 uppercase tracking-wider mb-3">
+              Project Image
+            </h3>
+            <input
+              type="file"
+              name="img"
+              accept="image/*"
+              onChange={uploadImage}
+              className="w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-dark-600 file:text-gray-300 hover:file:bg-dark-500"
+            />
             {prevSrc && (
-              <div className="text-center mb-4">
-                <h6>Preview:</h6>
-                <img src={prevSrc} alt="Preview" className="img-preview" />
+              <div className="mt-4 text-center">
+                <p className="text-sm text-gray-400 mb-2">Preview:</p>
+                <img
+                  src={prevSrc}
+                  alt="Preview"
+                  className="max-h-40 rounded-md mx-auto"
+                />
               </div>
             )}
           </div>
 
-          <div className="text-center mt-5">
-            <Button
-              variant="secondary"
-              className="me-2"
+          <div className="flex justify-end gap-3 pt-4 border-t border-dark-600">
+            <button
+              type="button"
               onClick={props.closeAddDialog}
+              className="px-4 py-2 bg-dark-600 text-gray-300 hover:text-white rounded-md transition-colors text-sm"
             >
               Cancel
-            </Button>
-            <Button
-              variant="danger"
+            </button>
+            <button
               type="submit"
-              style={{ backgroundColor: "maroon" }}
+              className="px-4 py-2 bg-accent hover:bg-accent-dark text-white rounded-md transition-colors text-sm font-medium"
             >
               Add Project
-            </Button>
+            </button>
           </div>
 
-          {result && <div className="text-center mt-3 text-info">{result}</div>}
-        </Form>
-      </Modal.Body>
-    </Modal>
+          {result && (
+            <p className="text-center text-sm text-accent-light mt-3">
+              {result}
+            </p>
+          )}
+        </form>
+      </div>
+    </div>
   );
 };
 

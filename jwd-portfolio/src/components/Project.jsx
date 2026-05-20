@@ -1,41 +1,39 @@
-import "./css/Project.css";
-import "../pages/css/Projects.css";
-import { Button } from "react-bootstrap";
-
 function Project(props) {
-  // Handle edit button click
   const handleEdit = () => {
     props.onEdit(props._id);
   };
 
-  // Handle delete button click
   const handleDelete = () => {
     if (window.confirm(`Are you sure you want to delete "${props.name}"?`)) {
       props.onDelete(props._id);
     }
   };
 
-  const imageSrc = props.image;
-
   return (
-    <>
-      <div className="props-content" key={props._id}>
-        <h2>Project Title: {props.name}</h2>
-        {imageSrc && (
-          <div className="props-image-container">
-            <img src={imageSrc} alt={`${props.name} screenshot`} />
-          </div>
-        )}
+    <div className="bg-dark-700 border border-dark-600 rounded-lg p-6 mt-6">
+      <h2 className="text-2xl font-bold text-white mb-4">{props.name}</h2>
+
+      {props.image && (
+        <div className="mb-6 rounded-lg overflow-hidden">
+          <img
+            src={props.image}
+            alt={`${props.name} screenshot`}
+            className="w-full max-h-96 object-cover"
+          />
+        </div>
+      )}
+
+      <div className="space-y-3 text-gray-300">
         <p>
-          <span className="props-label">Description:</span>
+          <span className="font-semibold text-gray-100">Description: </span>
           {props.desc}
         </p>
         <p>
-          <span className="props-label">Skills:</span>
+          <span className="font-semibold text-gray-100">Skills: </span>
           {Array.isArray(props.skills) ? props.skills.join(", ") : props.skills}
         </p>
         <p>
-          <span className="props-label">Contributions:</span>
+          <span className="font-semibold text-gray-100">Contributions: </span>
           {Array.isArray(props.contributions) && props.contributions.length > 0
             ? props.contributions.map((contributor, idx) => (
                 <span key={idx}>
@@ -44,45 +42,57 @@ function Project(props) {
                     href={contributor.url}
                     target="_blank"
                     rel="noopener noreferrer"
+                    className="text-accent-light hover:text-accent underline"
                   >
                     {contributor.name}
                   </a>
                 </span>
               ))
-            : "Personal props"}
+            : "Personal Project"}
         </p>
         {props.github && (
           <p>
-            <span className="props-label">Github:</span>
-            <a href={props.github} target="_blank" rel="noopener noreferrer">
-              Click Here!
+            <span className="font-semibold text-gray-100">GitHub: </span>
+            <a
+              href={props.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-accent-light hover:text-accent underline"
+            >
+              View Repository
             </a>
           </p>
         )}
         {props.devpost && (
           <p>
-            <span className="props-label">DevPost:</span>
-            <a href={props.devpost} target="_blank" rel="noopener noreferrer">
-              Click Here!
+            <span className="font-semibold text-gray-100">DevPost: </span>
+            <a
+              href={props.devpost}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-accent-light hover:text-accent underline"
+            >
+              View on DevPost
             </a>
           </p>
         )}
-
-        {/* Add Edit and Delete buttons */}
-        <div className="project-actions mt-4">
-          <Button
-            variant="outline-primary"
-            className="me-2"
-            onClick={handleEdit}
-          >
-            Edit Project
-          </Button>
-          <Button variant="outline-danger" onClick={handleDelete}>
-            Delete Project
-          </Button>
-        </div>
       </div>
-    </>
+
+      <div className="flex gap-3 mt-6">
+        <button
+          onClick={handleEdit}
+          className="px-4 py-2 border border-accent text-accent hover:bg-accent hover:text-white rounded-md transition-colors text-sm font-medium"
+        >
+          Edit Project
+        </button>
+        <button
+          onClick={handleDelete}
+          className="px-4 py-2 border border-red-500 text-red-500 hover:bg-red-500 hover:text-white rounded-md transition-colors text-sm font-medium"
+        >
+          Delete Project
+        </button>
+      </div>
+    </div>
   );
 }
 
