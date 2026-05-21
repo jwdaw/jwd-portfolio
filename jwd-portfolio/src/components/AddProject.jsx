@@ -79,7 +79,7 @@ const AddProject = (props) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/60 p-4">
       <div className="bg-dark-800 border border-dark-600 rounded-lg w-full max-w-2xl max-h-[90vh] overflow-y-auto">
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-dark-600">
@@ -114,7 +114,7 @@ const AddProject = (props) => {
                   required
                   minLength="3"
                   placeholder="Enter project name"
-                  className="w-full px-3 py-2 bg-dark-700 border border-dark-500 rounded-md text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-accent"
+                  className="w-full px-3 py-2 bg-dark-700 border border-dark-500 rounded-md text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white"
                 />
               </div>
               <div>
@@ -130,7 +130,7 @@ const AddProject = (props) => {
                   required
                   rows={3}
                   placeholder="Enter project description"
-                  className="w-full px-3 py-2 bg-dark-700 border border-dark-500 rounded-md text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-accent resize-none"
+                  className="w-full px-3 py-2 bg-dark-700 border border-dark-500 rounded-md text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white resize-none"
                 />
               </div>
               <div>
@@ -145,8 +145,8 @@ const AddProject = (props) => {
                   id="skills"
                   name="skills"
                   required
-                  placeholder="e.g. React, JavaScript, Bootstrap"
-                  className="w-full px-3 py-2 bg-dark-700 border border-dark-500 rounded-md text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-accent"
+                  placeholder="e.g. React, JavaScript, Tailwind"
+                  className="w-full px-3 py-2 bg-dark-700 border border-dark-500 rounded-md text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white"
                 />
               </div>
             </div>
@@ -170,7 +170,7 @@ const AddProject = (props) => {
                   name="contributorName"
                   required
                   placeholder="Enter contributor name"
-                  className="w-full px-3 py-2 bg-dark-700 border border-dark-500 rounded-md text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-accent"
+                  className="w-full px-3 py-2 bg-dark-700 border border-dark-500 rounded-md text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white"
                 />
               </div>
               <div>
@@ -185,7 +185,7 @@ const AddProject = (props) => {
                   id="contributorUrl"
                   name="contributorUrl"
                   placeholder="https://github.com/username"
-                  className="w-full px-3 py-2 bg-dark-700 border border-dark-500 rounded-md text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-accent"
+                  className="w-full px-3 py-2 bg-dark-700 border border-dark-500 rounded-md text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white"
                 />
               </div>
             </div>
@@ -224,16 +224,14 @@ const AddProject = (props) => {
             </button>
             <button
               type="submit"
-              className="px-4 py-2 bg-accent hover:bg-accent-dark text-white rounded-md transition-colors text-sm font-medium"
+              className="px-4 py-2 bg-white hover:bg-gray-200 text-white rounded-md transition-colors text-sm font-medium"
             >
               Add Project
             </button>
           </div>
 
           {result && (
-            <p className="text-center text-sm text-accent-light mt-3">
-              {result}
-            </p>
+            <p className="text-center text-sm text-gray-300 mt-3">{result}</p>
           )}
         </form>
       </div>

@@ -16,7 +16,7 @@ function Contact() {
           href="https://www.github.com/jwdaw"
           target="_blank"
           rel="noopener noreferrer"
-          className="px-6 py-3 bg-dark-700 border border-dark-500 text-gray-300 hover:text-white hover:border-accent rounded-md transition-colors text-sm font-medium no-underline"
+          className="px-6 py-3 bg-dark-700 border border-dark-500 text-gray-300 hover:text-white hover:border-gray-400 rounded-md transition-colors text-sm font-medium no-underline"
         >
           GitHub Profile
         </a>
@@ -24,7 +24,7 @@ function Contact() {
           href="https://www.linkedin.com/in/jackson-dawson-0a2259266/"
           target="_blank"
           rel="noopener noreferrer"
-          className="px-6 py-3 bg-dark-700 border border-dark-500 text-gray-300 hover:text-white hover:border-accent rounded-md transition-colors text-sm font-medium no-underline"
+          className="px-6 py-3 bg-dark-700 border border-dark-500 text-gray-300 hover:text-white hover:border-gray-400 rounded-md transition-colors text-sm font-medium no-underline"
         >
           LinkedIn Profile
         </a>

@@ -104,7 +104,7 @@ function Projects() {
 
   if (error && projects.length === 0) {
     return (
-      <div className="max-w-6xl mx-auto px-4 py-12 text-center text-red-400">
+      <div className="max-w-6xl mx-auto px-4 py-12 text-center text-gray-400">
         Error: {error}
       </div>
     );
@@ -139,7 +139,7 @@ function Projects() {
             onClick={() => handleSelect(index)}
             className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
               activeProject === index.toString()
-                ? "bg-accent text-white"
+                ? "bg-white text-white"
                 : "bg-dark-700 text-gray-300 hover:bg-dark-600 hover:text-white border border-dark-600"
             }`}
           >
@@ -148,14 +148,14 @@ function Projects() {
         ))}
         <button
           onClick={openAddDialog}
-          className="px-4 py-2 rounded-md text-sm font-medium bg-dark-700 border border-dashed border-dark-500 text-gray-400 hover:text-accent hover:border-accent transition-colors"
+          className="px-4 py-2 rounded-md text-sm font-medium bg-dark-700 border border-dashed border-dark-500 text-gray-400 hover:text-white hover:border-gray-400 transition-colors"
           title="Add new project"
         >
           + Add
         </button>
       </div>
 
-      {error && <p className="text-yellow-500 text-sm mb-4">{error}</p>}
+      {error && <p className="text-gray-400 text-sm mb-4">{error}</p>}
 
       {/* Active project */}
       {projects.map(

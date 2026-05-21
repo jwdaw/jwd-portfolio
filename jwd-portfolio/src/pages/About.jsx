@@ -2,13 +2,13 @@ function About() {
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
       {/* Profile section */}
-      <section className="flex flex-col md:flex-row gap-8 items-start mb-12">
+      <section className="flex flex-col md:flex-row gap-8 items-center md:items-start mb-12">
         <img
           src={`${process.env.PUBLIC_URL}/images/profile.jpeg`}
           alt="Jackson Dawson profile"
-          className="w-48 h-48 rounded-full object-cover border-4 border-dark-600 mx-auto md:mx-0"
+          className="w-48 h-48 rounded-full object-cover border-8 border-dark-600"
         />
-        <div className="bg-dark-700 border border-dark-600 rounded-lg p-6 flex-1">
+        <div className="bg-dark-700 border border-dark-600 rounded-lg p-6 w-full md:flex-1">
           <h1 className="text-2xl font-bold text-white mb-4">About Me</h1>
           <ul className="space-y-2 text-gray-300">
             <li className="flex gap-2">
@@ -16,12 +16,8 @@ function About() {
               Dawson
             </li>
             <li className="flex gap-2">
-              <span className="font-semibold text-gray-100">Major:</span>{" "}
-              Computer Information Systems
-            </li>
-            <li className="flex gap-2">
-              <span className="font-semibold text-gray-100">Graduation:</span>{" "}
-              May 2026
+              <span className="font-semibold text-gray-100">Education:</span>{" "}
+              B.S. in Computer Information Systems
             </li>
             <li className="flex gap-2">
               <span className="font-semibold text-gray-100">Hometown:</span>{" "}

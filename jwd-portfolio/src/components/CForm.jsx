@@ -41,7 +41,7 @@ export default function CForm() {
             name="name"
             id="name"
             required
-            className="w-full px-4 py-2 bg-dark-700 border border-dark-500 rounded-md text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
+            className="w-full px-4 py-2 bg-dark-700 border border-dark-500 rounded-md text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent"
             placeholder="Your name"
           />
         </div>
@@ -58,7 +58,7 @@ export default function CForm() {
             name="email"
             id="email"
             required
-            className="w-full px-4 py-2 bg-dark-700 border border-dark-500 rounded-md text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
+            className="w-full px-4 py-2 bg-dark-700 border border-dark-500 rounded-md text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent"
             placeholder="you@example.com"
           />
         </div>
@@ -75,20 +75,20 @@ export default function CForm() {
             id="message"
             required
             rows={5}
-            className="w-full px-4 py-2 bg-dark-700 border border-dark-500 rounded-md text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent resize-none"
+            className="w-full px-4 py-2 bg-dark-700 border border-dark-500 rounded-md text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent resize-none"
             placeholder="What's on your mind?"
           ></textarea>
         </div>
 
         <button
           type="submit"
-          className="w-full py-3 bg-accent hover:bg-accent-dark text-white font-medium rounded-md transition-colors"
+          className="w-full py-3 bg-white hover:bg-gray-200 text-dark-900 font-semibold rounded-md transition-colors shadow-md"
         >
           Send Message
         </button>
       </form>
       {result && (
-        <p className="mt-4 text-center text-sm text-accent-light">{result}</p>
+        <p className="mt-4 text-center text-sm text-gray-300">{result}</p>
       )}
     </div>
   );

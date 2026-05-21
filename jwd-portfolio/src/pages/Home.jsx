@@ -3,19 +3,19 @@ import { useState } from "react";
 function Home() {
   const slides = [
     {
-      image: `${process.env.PUBLIC_URL}/images/Hackathon.jpg`,
-      title: "CUHackit 2025",
-      desc: "Me and some friends won a Hackathon! We created a smart mailbox attachment",
+      image: `${process.env.PUBLIC_URL}/images/graduation.png`,
+      title: "Graduated from USC!",
+      desc: "Earned my degree in Computer Information Systems with a minor in Business Administration. Goodbye USC!",
     },
     {
-      image: `${process.env.PUBLIC_URL}/images/SpringBreak.jpg`,
-      title: "Spring Break Retreat",
-      desc: "I got to co-lead a group of students on a Spring Break trip for an on-campus student ministry!",
+      image: `${process.env.PUBLIC_URL}/images/colorado.png`,
+      title: "Colorado Camping Trip",
+      desc: "Headed to Colorado for the month to go on a camping trip before starting work in July.",
     },
     {
-      image: `${process.env.PUBLIC_URL}/images/Microphone.webp`,
-      title: "AI Transcription App",
-      desc: "I'm actively working on a personal side project that uses live transcription and AI to take notes",
+      image: `${process.env.PUBLIC_URL}/images/rvohealth.png`,
+      title: "Starting at RVO Health",
+      desc: "Joining RVO Health as an Associate Software Engineer in July 2026. Really excited to start!",
     },
   ];
 
@@ -26,7 +26,7 @@ function Home() {
     setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-12">
+    <div className="max-w-6xl mx-auto px-4 py-12 pt-4">
       {/* Intro */}
       <section className="text-center mb-12">
         <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
@@ -44,7 +44,7 @@ function Home() {
         {/* Slideshow */}
         <section className="bg-dark-700 border border-dark-600 rounded-lg overflow-hidden">
           <div className="p-4 border-b border-dark-600">
-            <h2 className="text-xl font-semibold text-white">Recent Work</h2>
+            <h2 className="text-xl font-semibold text-white">Recent News</h2>
           </div>
           <div className="relative">
             <img
@@ -56,21 +56,45 @@ function Home() {
               <h3 className="text-white font-semibold">
                 {slides[current].title}
               </h3>
-              <p className="text-gray-300 text-sm">{slides[current].desc}</p>
+              <p className="text-gray-200 text-sm">{slides[current].desc}</p>
             </div>
             <button
               onClick={prev}
-              className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white w-8 h-8 rounded-full flex items-center justify-center transition-colors"
+              className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/40 backdrop-blur-sm hover:bg-black/60 text-white w-10 h-10 rounded-full flex items-center justify-center transition-all shadow-lg"
               aria-label="Previous slide"
             >
-              ‹
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 19l-7-7 7-7"
+                />
+              </svg>
             </button>
             <button
               onClick={next}
-              className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white w-8 h-8 rounded-full flex items-center justify-center transition-colors"
+              className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/40 backdrop-blur-sm hover:bg-black/60 text-white w-10 h-10 rounded-full flex items-center justify-center transition-all shadow-lg"
               aria-label="Next slide"
             >
-              ›
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
             </button>
           </div>
           <div className="flex justify-center gap-2 p-3">
@@ -79,7 +103,7 @@ function Home() {
                 key={idx}
                 onClick={() => setCurrent(idx)}
                 className={`w-2 h-2 rounded-full transition-colors ${
-                  idx === current ? "bg-accent" : "bg-dark-500"
+                  idx === current ? "bg-white" : "bg-dark-500"
                 }`}
                 aria-label={`Go to slide ${idx + 1}`}
               />
@@ -90,28 +114,27 @@ function Home() {
         {/* News */}
         <section className="bg-dark-700 border border-dark-600 rounded-lg overflow-hidden">
           <div className="p-4 border-b border-dark-600">
-            <h2 className="text-xl font-semibold text-white">News</h2>
+            <h2 className="text-xl font-semibold text-white">Recent Work</h2>
           </div>
           <ul className="p-6 space-y-4 text-gray-300 text-sm leading-relaxed list-disc list-inside">
             <li>
-              Currently I am studying courses related to Data Structures and
-              Algorithms, Web Development, and Networking!
+              Completed my capstone project with Synchro, building mobile and
+              web features for an all-in-one sports hub platform using React,
+              Node/Express, and Azure.
             </li>
             <li>
-              Some projects I am actively working on include this personal
-              portfolio, a chatbot utilizing OpenAI's API, and a synchronized
-              timer for coaches to manage their athletes timing and performances
-              across devices.
+              Won Best use of AWS for the second year in a row at CUHackit 2026,
+              building Pill Buddy — an intelligent medication storage and
+              reminder device.
             </li>
             <li>
-              Some things I hope on learning soon include familiarity with web
-              application frameworks, a deeper understanding of machine learning
-              models/neural networks, and a better grasp of Python!
+              Finished my Software Engineering Internship at RVO Health over the
+              summer of 2025, gaining real-world experience in professional
+              software development.
             </li>
             <li>
-              I recently competed in a team of 3 at Clemson University's 2025
-              Hackathon! We created a smart mailbox attachment that won two of
-              the hackathon categories.
+              Won Best use of AWS and Best Hardware Hack at CUHackit 2025,
+              building a smart mailbox attachment with a team of friends.
             </li>
           </ul>
         </section>

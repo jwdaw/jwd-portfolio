@@ -19,11 +19,11 @@ function Navigation() {
   };
 
   return (
-    <nav className="max-w-6xl mx-auto px-4 py-4">
+    <nav className="max-w-6xl mx-auto px-4 py-8">
       <div className="flex items-center justify-between">
         <Link
           to="/"
-          className="text-xl font-bold text-white hover:text-accent-light transition-colors no-underline"
+          className="text-xl font-bold text-white hover:text-gray-300 transition-colors no-underline"
         >
           Jackson Dawson
         </Link>
@@ -66,8 +66,8 @@ function Navigation() {
               to={link.to}
               className={`text-sm font-medium transition-colors no-underline ${
                 isActive(link.to)
-                  ? "text-accent-light"
-                  : "text-gray-300 hover:text-white"
+                  ? "text-white"
+                  : "text-gray-400 hover:text-white"
               }`}
             >
               {link.label}
@@ -78,7 +78,7 @@ function Navigation() {
 
       {/* Mobile nav */}
       {isOpen && (
-        <div className="md:hidden mt-4 flex flex-col gap-3 border-t border-dark-600 pt-4">
+        <div className="md:hidden mt-3 flex flex-col gap-2 border-t border-dark-600 pt-3">
           {links.map((link) => (
             <Link
               key={link.to}
@@ -86,8 +86,8 @@ function Navigation() {
               onClick={() => setIsOpen(false)}
               className={`text-sm font-medium transition-colors no-underline ${
                 isActive(link.to)
-                  ? "text-accent-light"
-                  : "text-gray-300 hover:text-white"
+                  ? "text-white"
+                  : "text-gray-400 hover:text-white"
               }`}
             >
               {link.label}
